@@ -1,13 +1,13 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 </script>
 
 <template>
-  <Head>
-    <title>Dashboard</title>
-  </Head>
+  <AuthenticatedLayout title="Dashboard">
+    <template #heading>Dashboard</template>
 
-  <div>Dashboard Page</div>
+    <template #default>Dashboard page content</template>
+  </AuthenticatedLayout>
 </template>
 
 <style scoped></style>
