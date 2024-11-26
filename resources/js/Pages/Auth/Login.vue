@@ -4,6 +4,7 @@ import { useForm } from '@inertiajs/vue3';
 import Button from '@/Components/UI/Button.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import Input from '@/Components/UI/Input.vue';
+import InputError from '@/Components/UI/InputError.vue';
 import Label from '@/Components/UI/Label.vue';
 import Link from '@/Components/UI/Link.vue';
 
@@ -22,7 +23,8 @@ const form = useForm({
       <form class="space-y-6" @submit.prevent="form.post('/login')">
         <div class="[&>:not(:last-child)]:mb-2">
           <Label for="email">Email</Label>
-          <Input id="email" type="email" v-model="form.email" />
+          <Input id="email" type="text" v-model="form.email" />
+          <InputError :error="form.errors.email" />
         </div>
 
         <div class="[&>:not(:last-child)]:mb-2">
@@ -33,6 +35,7 @@ const form = useForm({
             </div>
           </div>
           <Input id="password" type="password" v-model="form.password" />
+          <InputError :error="form.errors.password" />
         </div>
 
         <div>

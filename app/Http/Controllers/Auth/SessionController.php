@@ -18,6 +18,10 @@ class SessionController extends Controller
     public function store(Request $request)
     {
         // validate request data
+        $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required',
+        ]);
 
         // check for existing email
 
