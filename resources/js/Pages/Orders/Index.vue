@@ -4,11 +4,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 <template>
   <AuthenticatedLayout title="Dashboard">
-    <template #heading>Dashboard</template>
+    <template #heading>Orders</template>
 
-    <template #default>
-      Dashboard page content
-    </template>
+    <template #default>Orders page content</template>
   </AuthenticatedLayout>
 </template>
 
