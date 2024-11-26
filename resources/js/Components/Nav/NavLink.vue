@@ -2,13 +2,8 @@
 import { onMounted, ref } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 
-const {
-  url,
-  label,
-  isMobile = false,
-} = defineProps({
+const { url, isMobile = false } = defineProps({
   url: String,
-  label: String,
   isMobile: Boolean,
 });
 
@@ -33,7 +28,7 @@ onMounted(() => {
     }"
     :href="url"
   >
-    {{ label }}
+    <slot />
   </Link>
 </template>
 

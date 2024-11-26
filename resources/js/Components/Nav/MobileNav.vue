@@ -74,9 +74,10 @@ const navLinks = [
             v-for="({ url, label }, index) in navLinks"
             :key="index"
             :url="url"
-            :label="label"
             :isMobile="true"
-          />
+          >
+            {{ label }}
+          </NavLink>
         </div>
 
         <div class="border-t border-gray-700 pb-3 pt-4">

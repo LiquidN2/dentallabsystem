@@ -24,8 +24,9 @@ const navLinks = [
               v-for="({ url, label }, index) in navLinks"
               :key="index"
               :url="url"
-              :label="label"
-            />
+            >
+              {{ label }}
+            </NavLink>
           </div>
         </div>
 
