@@ -2,8 +2,7 @@
 import { router } from '@inertiajs/vue3';
 
 const handleLogout = () => {
-  // router.post('/logout').then(() => {});
-  console.log('logout');
+  router.post('/logout');
 };
 </script>
 
