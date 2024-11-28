@@ -1,9 +1,13 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+
 import Logo from '@/Components/Nav/Logo.vue';
 import NavLink from '@/Components/Nav/NavLink.vue';
 
 const open = ref(false);
+const page = usePage();
+const user = computed(() => page.props.auth.user);
 
 const navLinks = [
   { url: '/', label: 'Dashboard' },
@@ -90,9 +94,11 @@ const navLinks = [
               />
             </div>
             <div class="ml-3">
-              <div class="text-base/5 font-medium text-white">Tom Cook</div>
+              <div class="text-base/5 font-medium text-white">
+                {{ user.name }}
+              </div>
               <div class="text-sm font-medium text-gray-400">
-                tom@example.com
+                {{ user.email }}
               </div>
             </div>
             <button
