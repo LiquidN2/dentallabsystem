@@ -27,6 +27,7 @@ const profileLinks = [
         aria-expanded="false"
         aria-haspopup="true"
         @click="open = !open"
+        @blur="open = false"
       >
         <span class="absolute -inset-1.5"></span>
         <span class="sr-only">Open user menu</span>

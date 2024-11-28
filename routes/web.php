@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Auth\UserRegistrationController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
     Route::inertia('/', 'Dashboard')->name('dashboard');
     Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
 
-    Route::inertia('/customers', 'Customers/Index')->name('customers.index');
+    Route::resource('customers', CustomerController::class);
     Route::inertia('/orders', 'Orders/Index')->name('orders.index');
 
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
