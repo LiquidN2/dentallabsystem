@@ -13,7 +13,6 @@ const active = ref(false);
 
 onMounted(() => {
   active.value = url === '/' ? page.url === url : page.url.startsWith(url);
-  console.log('Mounted');
 });
 </script>
 

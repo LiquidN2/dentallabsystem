@@ -1,6 +1,7 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import NavBar from '@/Components/Nav/NavBar.vue';
+import FlashMessage from '@/Components/UI/FlashMessage.vue';
 
 const { title = '' } = defineProps({
   title: String,
@@ -30,6 +31,8 @@ const { title = '' } = defineProps({
 
   <main>
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <FlashMessage />
+
       <!-- Your content -->
       <slot />
     </div>

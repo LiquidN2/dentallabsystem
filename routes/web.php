@@ -10,6 +10,8 @@ Route::middleware(['auth'])->group(function () {
     Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
 
     Route::resource('customers', CustomerController::class);
+    Route::get('/customers/{customer}/orders', [CustomerController::class, 'orders'])->name('customers.orders');
+
     Route::inertia('/orders', 'Orders/Index')->name('orders.index');
 
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');

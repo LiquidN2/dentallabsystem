@@ -14,6 +14,10 @@ const { data, ...pagination } = customers;
   <AuthenticatedLayout title="Customers">
     <template #heading>Customers</template>
 
+    <template #links>
+      <Link :isButton="true" href="/customers/create">New Customer</Link>
+    </template>
+
     <template #default>
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -48,7 +52,9 @@ const { data, ...pagination } = customers;
               <td class="px-6 py-4">{{ id }}</td>
               <td class="px-6 py-4">{{ code }}</td>
               <td class="px-6 py-4 font-medium text-gray-900">
-                {{ name }}
+                <Link :href="`/customers/${id}`">
+                  {{ name }}
+                </Link>
               </td>
               <td class="px-6 py-4">
                 <span>📧 {{ email }}</span> <br />
