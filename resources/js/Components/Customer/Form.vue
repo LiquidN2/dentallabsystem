@@ -1,14 +1,15 @@
 <script setup>
 import { Link, useForm } from '@inertiajs/vue3';
 
-import Label from '@/Components/UI/Label.vue';
+import Button from '@/Components/UI/Button.vue';
 import Input from '@/Components/UI/Input.vue';
 import InputError from '@/Components/UI/InputError.vue';
 import InputSelect from '@/Components/UI/InputSelect.vue';
-import Button from '@/Components/UI/Button.vue';
+import Label from '@/Components/UI/Label.vue';
 
-const { customer = undefined } = defineProps({
+const { customer = undefined, customerStatuses } = defineProps({
   customer: Object,
+  customerStatuses: Array,
 });
 
 const form = useForm({
@@ -51,6 +52,8 @@ const statuses = [
     label: 'Banned',
   },
 ];
+
+console.log(customerStatuses);
 </script>
 
 <template>
@@ -112,7 +115,7 @@ const statuses = [
             class="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-4 py-6 items-center"
           >
             <Label for="status" class="sm:col-span-1">Status</Label>
-            <InputSelect :options="statuses" v-model="form.status" />
+            <InputSelect :options="customerStatuses" v-model="form.status" />
           </div>
 
           <!-- Email Address -->

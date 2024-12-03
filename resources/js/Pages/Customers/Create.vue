@@ -1,6 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import CustomerForm from '@/Components/Customer/Form.vue';
+
+defineProps({
+  customerStatuses: Array,
+});
 </script>
 
 <template>
@@ -8,7 +12,7 @@ import CustomerForm from '@/Components/Customer/Form.vue';
     <template #heading>Create A New Customer</template>
 
     <template #default>
-      <CustomerForm />
+      <CustomerForm :customerStatuses="customerStatuses" />
     </template>
   </AuthenticatedLayout>
 </template>

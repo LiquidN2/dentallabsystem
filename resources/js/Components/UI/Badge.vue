@@ -43,5 +43,8 @@ const className = computed(() => {
 </script>
 
 <template>
-  <span :class="className" v-html="status" />
+  <span
+    :class="className"
+    v-html="status.charAt(0).toUpperCase() + status.slice(1)"
+  />
 </template>

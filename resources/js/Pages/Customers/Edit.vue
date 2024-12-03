@@ -2,8 +2,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import CustomerForm from '@/Components/Customer/Form.vue';
 
-const { customer } = defineProps({
+defineProps({
   customer: Object,
+  customerStatuses: Array,
 });
 </script>
 
@@ -12,7 +13,7 @@ const { customer } = defineProps({
     <template #heading>Edit Customer Information</template>
 
     <template #default>
-      <CustomerForm :customer="customer" />
+      <CustomerForm :customer="customer" :customerStatuses="customerStatuses" />
     </template>
   </AuthenticatedLayout>
 </template>

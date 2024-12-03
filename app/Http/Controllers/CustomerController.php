@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CustomerStatus;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use Inertia\Inertia;
@@ -18,7 +19,9 @@ class CustomerController extends Controller
 
     public function create()
     {
-        return Inertia::render('Customers/Create');
+        return Inertia::render('Customers/Create', [
+            'customerStatuses' => CustomerStatus::getFormOptions(),
+        ]);
     }
 
     public function store(StoreCustomerRequest $request)
@@ -50,6 +53,7 @@ class CustomerController extends Controller
     {
         return Inertia::render('Customers/Edit', [
             'customer' => $customer,
+            'customerStatuses' => CustomerStatus::getFormOptions(),
         ]);
     }
 

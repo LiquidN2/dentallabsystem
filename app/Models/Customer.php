@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CustomerStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,4 +17,8 @@ class Customer extends Model
      * @var array<int, string>
      */
     protected $guarded = [];
+
+    protected $casts = [
+        'status' => CustomerStatus::class,
+    ];
 }
