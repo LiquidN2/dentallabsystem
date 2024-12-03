@@ -23,7 +23,7 @@ const { title = '' } = defineProps({
         <slot name="heading" />
       </h1>
 
-      <div class="flex items-center">
+      <div class="flex items-center [&>:not(:last-child)]:mr-4">
         <slot name="links"></slot>
       </div>
     </div>
@@ -39,14 +39,14 @@ const { title = '' } = defineProps({
   </main>
 
   <footer class="bg-white">
-    <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+    <div class="mx-auto w-full max-w-screen-xl p-6 lg:p-8">
       <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
       <div class="sm:flex sm:items-center sm:justify-between">
-        <span class="text-sm text-gray-900 sm:text-center"
-          >© 2024
-          <a href="https://flowbite.com/" class="hover:underline">Hugh Nguyen</a
-          >. All Rights Reserved.
+        <span class="text-sm text-gray-900 sm:text-center">
+          © 2024
+          <span class="font-medium">Hugh Nguyen</span>. All Rights Reserved.
         </span>
+
         <div class="flex mt-4 sm:justify-center sm:mt-0">
           <a href="#" class="text-gray-500 hover:text-gray-900">
             <svg

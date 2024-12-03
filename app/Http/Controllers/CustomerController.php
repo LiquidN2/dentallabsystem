@@ -73,4 +73,19 @@ class CustomerController extends Controller
             'content' => 'Customer information has been updated!'
         ]);
     }
+
+    public function destroy(Customer $customer)
+    {
+        if(!$customer->delete()) {
+            return back()->with('message', [
+                'type'    => 'danger',
+                'content' => 'Unable to delete customer.'
+            ]);
+        };
+
+        return redirect("/customers")->with('message', [
+            'type'    => 'success',
+            'content' => 'Customer has been deleted!'
+        ]);
+    }
 }

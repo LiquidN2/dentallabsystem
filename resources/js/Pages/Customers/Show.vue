@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Badge from '@/Components/UI/Badge.vue';
 import Link from '@/Components/UI/Link.vue';
+import DeleteButton from '@/Components/Customer/DeleteButton.vue';
 
 const { customer } = defineProps({
   customer: Object,
@@ -27,9 +28,8 @@ const {
     <template #heading>Customer Information</template>
 
     <template #links>
-      <Link :isButton="true" :href="`/customers/${id}/edit`"
-        >Edit Customer</Link
-      >
+      <DeleteButton :customerId="id">Delete</DeleteButton>
+      <Link :isButton="true" :href="`/customers/${id}/edit`"> Edit Info </Link>
     </template>
 
     <template #default>
