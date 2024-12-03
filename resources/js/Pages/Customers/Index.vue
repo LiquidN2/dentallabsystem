@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import Badge from '@/Components/UI/Badge.vue';
 import Link from '@/Components/UI/Link.vue';
 import Pagination from '@/Components/UI/Pagination.vue';
 
@@ -26,6 +27,7 @@ const { data, ...pagination } = customers;
               <th scope="col" class="px-6 py-3">ID</th>
               <th scope="col" class="px-6 py-3">Code</th>
               <th scope="col" class="px-6 py-3">Name</th>
+              <th scope="col" class="px-6 py-3">Status</th>
               <th scope="col" class="px-6 py-3">Contact</th>
               <th scope="col" class="px-6 py-3">Address</th>
               <th scope="col" class="px-6 py-3">
@@ -41,6 +43,7 @@ const { data, ...pagination } = customers;
                 id,
                 code,
                 name,
+                status,
                 email,
                 phone,
                 address,
@@ -55,6 +58,9 @@ const { data, ...pagination } = customers;
                 <Link :href="`/customers/${id}`">
                   {{ name }}
                 </Link>
+              </td>
+              <td class="px-6 py-4">
+                <Badge :status="status" />
               </td>
               <td class="px-6 py-4">
                 <span>📧 {{ email }}</span> <br />

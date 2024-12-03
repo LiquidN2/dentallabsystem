@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->nullable();
+            $table->string('code');
+            $table->enum('status', ['active', 'suspended', 'banned', 'inactive'])->default('active');
             $table->string('name');
             $table->string('email');
             $table->string('phone');

@@ -20,6 +20,7 @@ class CustomerFactory extends Factory
             //
             'name' => fake()->company(),
             'code' => fake()->unique()->randomNumber(4, true),
+            'status' => fake()->randomElement(['active', 'inactive', 'suspended', 'banned']),
             'email' => fake()->unique()->email(),
             'phone' => fake()->unique()->phoneNumber(),
             'address' => fake()->unique()->streetAddress(),

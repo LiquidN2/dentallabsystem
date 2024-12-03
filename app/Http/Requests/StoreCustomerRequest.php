@@ -25,6 +25,7 @@ class StoreCustomerRequest extends FormRequest
             //
             'name'     => ['required', 'string', 'min:3', 'max:255'],
             'code'     => ['string'],
+            'status'   => ['string'],
             'email'    => ['string', 'email', 'max:255'],
             'phone'    => ['string'],
             'address'  => ['string'],

@@ -4,6 +4,7 @@ import { Link, useForm } from '@inertiajs/vue3';
 import Label from '@/Components/UI/Label.vue';
 import Input from '@/Components/UI/Input.vue';
 import InputError from '@/Components/UI/InputError.vue';
+import InputSelect from '@/Components/UI/InputSelect.vue';
 import Button from '@/Components/UI/Button.vue';
 
 const { customer = undefined } = defineProps({
@@ -13,6 +14,7 @@ const { customer = undefined } = defineProps({
 const form = useForm({
   name: customer?.name || '',
   code: customer?.code || '',
+  status: customer?.status || 'inactive',
   email: customer?.email || '',
   phone: customer?.phone || '',
   address: customer?.address || '',
@@ -30,6 +32,25 @@ const submit = () => {
 
   form.post('/customers');
 };
+
+const statuses = [
+  {
+    value: 'active',
+    label: 'Active',
+  },
+  {
+    value: 'inactive',
+    label: 'Inactive',
+  },
+  {
+    value: 'suspended',
+    label: 'Suspended',
+  },
+  {
+    value: 'banned',
+    label: 'Banned',
+  },
+];
 </script>
 
 <template>
@@ -86,8 +107,18 @@ const submit = () => {
             />
           </div>
 
+          <!-- Status -->
+          <div
+            class="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-4 py-6 items-center"
+          >
+            <Label for="status" class="sm:col-span-1">Status</Label>
+            <InputSelect :options="statuses" v-model="form.status" />
+          </div>
+
           <!-- Email Address -->
-          <div class="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-4 py-6">
+          <div
+            class="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-4 py-6 items-center"
+          >
             <Label for="email" class="sm:col-span-1">Email Address</Label>
             <div class="sm:col-span-3 grid grid-cols-1 gap-x-6 sm:grid-cols-4">
               <Input
