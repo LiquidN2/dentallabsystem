@@ -20,7 +20,7 @@ class CustomerFactory extends Factory
         return [
             //
             'name' => fake()->company(),
-            'code' => fake()->unique()->randomNumber(4, true),
+            'code' => fake()->unique()->numberBetween(1000, 99999),
             'status' => fake()->randomElement(CustomerStatus::cases())->value,
             'email' => fake()->unique()->email(),
             'phone' => fake()->unique()->phoneNumber(),

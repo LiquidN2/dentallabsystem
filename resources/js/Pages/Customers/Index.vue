@@ -3,12 +3,22 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Badge from '@/Components/UI/Badge.vue';
 import Link from '@/Components/UI/Link.vue';
 import Pagination from '@/Components/UI/Pagination.vue';
+import SearchFilter from '@/Components/Customer/SearchFilter.vue';
+import { computed } from 'vue';
 
-const { customers } = defineProps({
+const { customers, hasData } = defineProps({
   customers: Object,
+  hasData: Boolean,
 });
 
-const { data, ...pagination } = customers;
+const data = computed(() => customers?.data || []);
+const pagination = computed(() => {
+  if (!customers) return null;
+  const { data, ...paginationObj } = customers;
+  return paginationObj;
+});
+
+console.log(customers);
 </script>
 
 <template>
@@ -20,7 +30,14 @@ const { data, ...pagination } = customers;
     </template>
 
     <template #default>
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div class="mt-6 mb-12">
+        <SearchFilter />
+      </div>
+
+      <div
+        class="relative overflow-x-auto shadow-md sm:rounded-lg"
+        v-if="data.length > 0"
+      >
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
@@ -78,11 +95,9 @@ const { data, ...pagination } = customers;
         </table>
       </div>
 
-      <div class="my-4">
+      <div class="my-4" v-if="data.length > 0">
         <Pagination :pagination="pagination" />
       </div>
     </template>
   </AuthenticatedLayout>
 </template>
-
-<style scoped></style>

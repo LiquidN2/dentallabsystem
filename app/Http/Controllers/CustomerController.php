@@ -5,15 +5,31 @@ namespace App\Http\Controllers;
 use App\Enums\CustomerStatus;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CustomerController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->has('search')) {
+            return Inertia::render('Customers/Index', [
+                'customers' => null,
+            ]);
+        }
+
+        $filters = [];
+        foreach ($request->all() as $key => $value) {
+            if ($key == 'page' || $key == 'search') continue;
+            $filters []= [$key, 'like', "%{$value}%"];
+        }
+
+        $query = count($filters) > 0 ? Customer::where($filters) : Customer::orderByDesc('id');
+        $customers = $query->paginate(20)->withQueryString();
+
         return Inertia::render('Customers/Index', [
-            'customers' => Customer::orderByDesc('id')->paginate(20),
+            'customers' => $customers,
         ]);
     }
 
@@ -52,7 +68,7 @@ class CustomerController extends Controller
     public function edit(Customer $customer)
     {
         return Inertia::render('Customers/Edit', [
-            'customer' => $customer,
+            'customer'         => $customer,
             'customerStatuses' => CustomerStatus::getFormOptions(),
         ]);
     }
@@ -76,7 +92,7 @@ class CustomerController extends Controller
 
     public function destroy(Customer $customer)
     {
-        if(!$customer->delete()) {
+        if (!$customer->delete()) {
             return back()->with('message', [
                 'type'    => 'danger',
                 'content' => 'Unable to delete customer.'

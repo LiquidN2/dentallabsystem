@@ -6,10 +6,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
   <AuthenticatedLayout title="Dashboard">
     <template #heading>Dashboard</template>
 
-    <template #default>
-      Dashboard page content
-    </template>
+    <template #default>Dashboard Page Content</template>
   </AuthenticatedLayout>
 </template>
-
-<style scoped></style>

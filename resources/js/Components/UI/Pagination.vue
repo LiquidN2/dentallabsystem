@@ -40,7 +40,7 @@ const { pagination } = defineProps({
           results
         </p>
       </div>
-      <div>
+      <div v-if="pagination.last_page > 1">
         <nav
           class="isolate inline-flex -space-x-px rounded-md shadow-sm"
           aria-label="Pagination"

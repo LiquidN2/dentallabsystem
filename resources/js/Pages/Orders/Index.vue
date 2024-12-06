@@ -9,5 +9,3 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     <template #default>Orders page content</template>
   </AuthenticatedLayout>
 </template>
-
-<style scoped></style>
