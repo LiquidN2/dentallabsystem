@@ -1,50 +1,50 @@
 <script setup>
 import { computed } from 'vue';
 
-const { status = 'default' } = defineProps({ status: String });
+const { theme = 'default', label = 'label' } = defineProps({
+  theme: String,
+  label: String,
+});
 
-const className = computed(() => {
-  const defaultClass =
-    'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset';
-
-  let statusClass = '';
-
-  switch (status) {
-    case 'active':
+const themeClass = computed(() => {
+  switch (theme) {
+    case 'green':
     case 'success':
-      statusClass = 'bg-green-50 text-green-700 ring-green-600/20';
-      break;
+      return 'bg-green-50 text-green-700 ring-green-600/20';
 
-    case 'suspended':
+    case 'yellow':
     case 'warning':
-    case 'onhold':
-      statusClass = 'bg-yellow-50 text-yellow-800 ring-yellow-600/20';
-      break;
+      return 'bg-yellow-50 text-yellow-800 ring-yellow-600/20';
 
-    case 'banned':
+    case 'red':
     case 'danger':
-      statusClass = 'bg-red-50 text-red-700 ring-red-600/10';
-      break;
+      return 'bg-red-50 text-red-700 ring-red-600/10';
 
+    case 'blue':
     case 'info':
-      statusClass = 'bg-blue-50 text-blue-700 ring-blue-700/10';
-      break;
+      return 'bg-blue-50 text-blue-700 ring-blue-700/10';
 
-    case 'inactive':
-    case 'cancelled':
+    case 'indigo':
+      return 'bg-indigo-50 text-indigo-700 ring-indigo-700/10';
+
+    case 'purple':
+      return 'bg-purple-50 text-purple-700 ring-purple-700/10';
+
+    case 'pink':
+      return 'bg-pink-50 text-pink-700 ring-pink-700/10';
+
+    case 'gray':
     case 'default':
     default:
-      statusClass = 'bg-gray-50 text-gray-600 ring-gray-500/10';
-      break;
+      return 'bg-gray-50 text-gray-600 ring-gray-500/10';
   }
-
-  return `${defaultClass} ${statusClass}`;
 });
 </script>
 
 <template>
   <span
-    :class="className"
-    v-html="status.charAt(0).toUpperCase() + status.slice(1)"
+    class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset"
+    :class="themeClass"
+    v-html="label.charAt(0).toUpperCase() + label.slice(1)"
   />
 </template>

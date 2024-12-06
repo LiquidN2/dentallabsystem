@@ -1,14 +1,14 @@
 <script setup>
+import { computed } from 'vue';
+
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import Badge from '@/Components/UI/Badge.vue';
 import Link from '@/Components/UI/Link.vue';
 import Pagination from '@/Components/UI/Pagination.vue';
 import SearchFilter from '@/Components/Customer/SearchFilter.vue';
-import { computed } from 'vue';
+import StatusBadge from '@/Components/UI/StatusBadge.vue';
 
-const { customers, hasData } = defineProps({
+const { customers } = defineProps({
   customers: Object,
-  hasData: Boolean,
 });
 
 const data = computed(() => customers?.data || []);
@@ -17,8 +17,6 @@ const pagination = computed(() => {
   const { data, ...paginationObj } = customers;
   return paginationObj;
 });
-
-console.log(customers);
 </script>
 
 <template>
@@ -77,7 +75,7 @@ console.log(customers);
                 </Link>
               </td>
               <td class="px-6 py-4">
-                <Badge :status="status" />
+                <StatusBadge :status="status" />
               </td>
               <td class="px-6 py-4">
                 <span>📧 {{ email }}</span> <br />

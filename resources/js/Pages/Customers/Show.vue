@@ -1,8 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import Badge from '@/Components/UI/Badge.vue';
 import Link from '@/Components/UI/Link.vue';
 import DeleteButton from '@/Components/Customer/DeleteButton.vue';
+import StatusBadge from '@/Components/UI/StatusBadge.vue';
 
 const { customer } = defineProps({
   customer: Object,
@@ -117,7 +117,7 @@ const {
             <div class="px-4 py-6 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
               <dt class="text-sm/6 font-medium text-gray-900">Status</dt>
               <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-3 sm:mt-0">
-                <Badge :status="status" class="!text-sm" />
+                <StatusBadge :status="status" class="!text-sm" />
               </dd>
             </div>
 
