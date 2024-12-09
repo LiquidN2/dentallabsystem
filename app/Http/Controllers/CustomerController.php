@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CustomerStatus;
-use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\Customer\StoreCustomerRequest;
+use App\Http\Requests\Customer\UpdateCustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -73,7 +74,7 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function update(StoreCustomerRequest $request, Customer $customer)
+    public function update(UpdateCustomerRequest $request, Customer $customer)
     {
         $validated = $request->validated();
 
