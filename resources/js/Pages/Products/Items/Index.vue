@@ -1,32 +1,45 @@
 <script setup>
 import { useListingData } from '@/Composables/page.js';
 
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import Badge from '@/Components/UI/Badge.vue';
 import Link from '@/Components/UI/Link.vue';
 import Pagination from '@/Components/UI/Pagination.vue';
-import SearchFilter from '@/Components/Customer/SearchFilter.vue';
-import StatusBadge from '@/Components/UI/StatusBadge.vue';
+import ProductsPageLayout from '@/Layouts/Pages/ProductsPageLayout.vue';
 
-const { customers = undefined } = defineProps({
-  customers: Object,
+const { products = undefined } = defineProps({
+  products: Object,
 });
 
-const { data, pagination } = useListingData(customers);
+const { data = [], pagination } = useListingData(products);
+const productCategoryTheme = catId => {
+  switch (catId) {
+    case 2:
+      return 'yellow';
+
+    case 3:
+      return 'green';
+
+    case 4:
+      return 'blue';
+
+    case 1:
+    default:
+      return 'default';
+  }
+};
 </script>
 
 <template>
-  <AuthenticatedLayout title="Customers">
-    <template #heading>Customer Listing</template>
+  <ProductsPageLayout title="Product Items">
+    <template #heading>Product Items</template>
 
     <template #links>
-      <Link :isButton="true" href="/customers/create">New Customer</Link>
+      <Link :isButton="true" href="/products/items/create">
+        Add Product Item
+      </Link>
     </template>
 
     <template #default>
-      <div class="mt-6 mb-12">
-        <SearchFilter />
-      </div>
-
       <div
         class="relative overflow-x-auto shadow-md sm:rounded-lg"
         v-if="data.length > 0"
@@ -37,9 +50,8 @@ const { data, pagination } = useListingData(customers);
               <th scope="col" class="px-6 py-3">ID</th>
               <th scope="col" class="px-6 py-3">Code</th>
               <th scope="col" class="px-6 py-3">Name</th>
-              <th scope="col" class="px-6 py-3">Status</th>
-              <th scope="col" class="px-6 py-3">Contact</th>
-              <th scope="col" class="px-6 py-3">Address</th>
+              <th scope="col" class="px-6 py-3">Category</th>
+              <th scope="col" class="px-6 py-3">Turnaround Time</th>
               <th scope="col" class="px-6 py-3">
                 <span class="sr-only">Edit</span>
               </th>
@@ -53,35 +65,26 @@ const { data, pagination } = useListingData(customers);
                 id,
                 code,
                 name,
-                status,
-                email,
-                phone,
-                address,
-                city,
-                postcode,
+                product_category_name,
+                product_category_id,
+                turnaround_time,
               } in data"
               :key="id"
             >
               <td class="px-6 py-4">{{ id }}</td>
               <td class="px-6 py-4">{{ code }}</td>
               <td class="px-6 py-4 font-medium text-gray-900">
-                <Link :href="`/customers/${id}`">
-                  {{ name }}
-                </Link>
+                {{ name }}
               </td>
               <td class="px-6 py-4">
-                <StatusBadge :status="status" />
+                <Badge
+                  :theme="productCategoryTheme(product_category_id)"
+                  :label="product_category_name"
+                />
               </td>
-              <td class="px-6 py-4">
-                <span>📧 {{ email }}</span> <br />
-                <span>☎️ {{ phone }}</span>
-              </td>
-              <td class="px-6 py-4">
-                <span>{{ address }}</span> <br />
-                <span>{{ city }}, {{ postcode }}</span>
-              </td>
+              <td class="px-6 py-4">{{ turnaround_time }}</td>
               <td class="px-6 py-4 text-right">
-                <Link :href="`/customers/${id}/edit`">Edit</Link>
+                <Link :href="`/products/1/edit`">Edit</Link>
               </td>
             </tr>
           </tbody>
@@ -92,5 +95,5 @@ const { data, pagination } = useListingData(customers);
         <Pagination :pagination="pagination" />
       </div>
     </template>
-  </AuthenticatedLayout>
+  </ProductsPageLayout>
 </template>

@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Auth\UserRegistrationController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductItemController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -13,6 +15,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/customers/{customer}/orders', [CustomerController::class, 'orders'])->name('customers.orders');
 
     Route::inertia('/orders', 'Orders/Index')->name('orders.index');
+
+    Route::get('/products', function() {
+        return redirect('/products/items');
+    });
+    Route::resource('products/categories', ProductCategoryController::class);
+    Route::resource('products/items', ProductItemController::class);
 
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 });

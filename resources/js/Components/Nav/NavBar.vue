@@ -8,6 +8,7 @@ const navLinks = [
   { url: '/', label: 'Dashboard' },
   { url: '/customers', label: 'Customers' },
   { url: '/orders', label: 'Orders' },
+  { url: '/products', label: 'Products' },
 ];
 </script>
 
