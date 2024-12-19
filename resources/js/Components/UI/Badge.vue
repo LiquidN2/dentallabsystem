@@ -33,6 +33,9 @@ const themeClass = computed(() => {
     case 'pink':
       return 'bg-pink-50 text-pink-700 ring-pink-700/10';
 
+    case 'disabled':
+      return 'bg-gray-50 text-gray-300 ring-gray-500/10';
+
     case 'gray':
     case 'default':
     default:

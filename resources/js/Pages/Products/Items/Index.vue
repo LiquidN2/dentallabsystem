@@ -1,5 +1,6 @@
 <script setup>
 import { useListingData } from '@/Composables/page.js';
+import { CheckIcon } from '@heroicons/vue/20/solid';
 
 import Badge from '@/Components/UI/Badge.vue';
 import Link from '@/Components/UI/Link.vue';
@@ -11,6 +12,7 @@ const { products = undefined } = defineProps({
 });
 
 const { data = [], pagination } = useListingData(products);
+
 const productCategoryTheme = catId => {
   switch (catId) {
     case 2:
@@ -47,46 +49,70 @@ const productCategoryTheme = catId => {
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
-              <th scope="col" class="px-6 py-3">ID</th>
+              <th scope="col" class="px-6 py-3 text-right">Available</th>
+              <th scope="col" class="px-6 py-3 text-right">ID</th>
               <th scope="col" class="px-6 py-3">Code</th>
               <th scope="col" class="px-6 py-3">Name</th>
               <th scope="col" class="px-6 py-3">Category</th>
-              <th scope="col" class="px-6 py-3">Turnaround Time</th>
-              <th scope="col" class="px-6 py-3">
-                <span class="sr-only">Edit</span>
-              </th>
+              <th scope="col" class="px-6 py-3 text-right">Turnaround Time</th>
+              <th scope="col" class="px-6 py-3 text-right">Action</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr
-              class="bg-white border-b hover:bg-gray-50"
+            <template
               v-for="{
                 id,
                 code,
                 name,
+                short_name,
                 product_category_name,
                 product_category_id,
                 turnaround_time,
+                available,
               } in data"
               :key="id"
             >
-              <td class="px-6 py-4">{{ id }}</td>
-              <td class="px-6 py-4">{{ code }}</td>
-              <td class="px-6 py-4 font-medium text-gray-900">
-                {{ name }}
-              </td>
-              <td class="px-6 py-4">
-                <Badge
-                  :theme="productCategoryTheme(product_category_id)"
-                  :label="product_category_name"
-                />
-              </td>
-              <td class="px-6 py-4">{{ turnaround_time }}</td>
-              <td class="px-6 py-4 text-right">
-                <Link :href="`/products/1/edit`">Edit</Link>
-              </td>
-            </tr>
+              <tr
+                class="border-b"
+                :class="{
+                  'bg-white hover:bg-gray-50': available,
+                  '!bg-gray-50 !text-gray-300': !available,
+                }"
+              >
+                <td class="px-6 py-4 flex justify-end">
+                  <CheckIcon class="size-4 text-indigo-600" v-if="available" />
+                </td>
+                <td class="px-6 py-4 text-right">{{ id }}</td>
+                <td class="px-6 py-4">{{ code }}</td>
+                <td
+                  class="px-6 py-4 font-medium"
+                  :class="{
+                    'text-gray-900': available,
+                    'text-gray-300': !available,
+                  }"
+                >
+                  {{ name }}
+                  <span v-if="short_name">({{ short_name }})</span>
+                </td>
+                <td class="px-6 py-4">
+                  <Badge
+                    :theme="productCategoryTheme(product_category_id)"
+                    :label="product_category_name"
+                    v-if="available"
+                  />
+                  <Badge
+                    theme="disabled"
+                    :label="product_category_name"
+                    v-else
+                  />
+                </td>
+                <td class="px-6 py-4 text-right">{{ turnaround_time }}</td>
+                <td class="px-6 py-4 text-right">
+                  <Link :href="`/products/items/${id}/edit`">Edit</Link>
+                </td>
+              </tr>
+            </template>
           </tbody>
         </table>
       </div>

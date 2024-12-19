@@ -48,7 +48,7 @@ class CustomerController extends Controller
         $customer = Customer::create($validated);
         if (!$customer) {
             return back()->with('message', [
-                'type'    => 'danger',
+                'type'    => 'error',
                 'content' => 'Unable to create customer.'
             ]);
         }
@@ -80,7 +80,7 @@ class CustomerController extends Controller
 
         if (!$customer->update($validated)) {
             return back()->with('message', [
-                'type'    => 'danger',
+                'type'    => 'error',
                 'content' => 'Unable to update customer.'
             ]);
         };
@@ -95,7 +95,7 @@ class CustomerController extends Controller
     {
         if (!$customer->delete()) {
             return back()->with('message', [
-                'type'    => 'danger',
+                'type'    => 'error',
                 'content' => 'Unable to delete customer.'
             ]);
         };

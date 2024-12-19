@@ -1,40 +1,54 @@
 <script setup>
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, watch } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 
 const page = usePage();
 
-const message = reactive({
+const state = reactive({
   hidden: true,
   type: 'default',
-  content: 'Flash message content',
+  content: '',
 });
 
+// Display message when navigated to a new page
 onMounted(() => {
   if (!page.props.flash.message) return;
-
-  message.hidden = false;
-  message.type = page.props.flash.message?.type;
-  message.content = page.props.flash.message?.content;
-
+  state.hidden = false;
+  state.type = page.props.flash.message.type;
+  state.content = page.props.flash.message.content;
   setTimeout(() => {
-    message.hidden = true;
+    state.hidden = true;
   }, 3000);
 });
+
+// Watcher to display message on current page
+watch(
+  () => page.props.flash.message,
+  async (newValue, _oldValue) => {
+    if (!newValue) return;
+    state.hidden = false;
+    state.type = newValue.type;
+    state.content = newValue.content;
+    setTimeout(() => {
+      state.hidden = true;
+    }, 3000);
+  },
+);
 </script>
 
 <template>
   <div
     class="flex items-center p-4 mb-4 text-sm rounded-lg"
     :class="{
-      'text-gray-800 bg-gray-50': message.type === 'default',
-      'text-green-800 bg-green-50': message.type === 'success',
-      'text-red-800 bg-red-50': message.type === 'danger',
-      'text-yellow-800 bg-yellow-50': message.type === 'warning',
-      'text-blue-800 bg-blue-50': message.type === 'info',
+      'text-gray-800 bg-gray-50': state.type === 'default',
+      'text-green-800 bg-green-50': state.type === 'success',
+      'text-red-800 bg-red-50':
+        state.type === 'danger' || state.type === 'error',
+      'text-yellow-800 bg-yellow-50': state.type === 'warning',
+      'text-blue-800 bg-blue-50': state.type === 'info',
     }"
     role="alert"
-    v-if="!message.hidden"
+    v-if="!state.hidden"
   >
     <svg
       class="flex-shrink-0 inline w-4 h-4 me-3"
@@ -49,7 +63,7 @@ onMounted(() => {
     </svg>
     <span class="sr-only">Info</span>
     <div>
-      {{ message.content }}
+      {{ state.content }}
     </div>
   </div>
 </template>

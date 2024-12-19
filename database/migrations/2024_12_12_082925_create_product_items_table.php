@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('short_name')->nullable()->default(null);
             $table->string('code')->nullable()->default(null);
             $table->longText('description')->nullable()->default(null);
-            $table->foreignIdFor(ProductCategory::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(ProductCategory::class)->nullable()->default(null);
             $table->integer('turnaround_time')->nullable()->default(null);
+            $table->boolean('available')->default(true);
             $table->timestamps();
         });
     }

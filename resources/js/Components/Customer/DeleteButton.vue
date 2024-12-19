@@ -3,7 +3,7 @@ import { useForm } from '@inertiajs/vue3';
 import Button from '@/Components/UI/Button.vue';
 
 defineProps({
-  customerId: String,
+  customerId: Number,
 });
 
 const form = useForm({});

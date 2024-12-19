@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\SessionController;
-use App\Http\Controllers\Auth\UserRegistrationController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductItemController;
@@ -11,26 +9,30 @@ Route::middleware(['auth'])->group(function () {
     Route::inertia('/', 'Dashboard')->name('dashboard');
     Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
 
+    // Customers
     Route::resource('customers', CustomerController::class);
     Route::get('/customers/{customer}/orders', [CustomerController::class, 'orders'])->name('customers.orders');
 
+    // Orders
     Route::inertia('/orders', 'Orders/Index')->name('orders.index');
+});
 
-    Route::get('/products', function() {
+Route::prefix('products')->group(function () {
+    Route::get('/', function () {
         return redirect('/products/items');
     });
-    Route::resource('products/categories', ProductCategoryController::class);
-    Route::resource('products/items', ProductItemController::class);
 
-    Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
-});
+    Route::get('/categories', [ProductCategoryController::class, 'index']);
 
-Route::middleware(['guest'])->group(function () {
-    Route::get('/login', [SessionController::class, 'create'])->name('login');
-    Route::post('/login', [SessionController::class, 'store'])->name('login.store');
+    Route::get('/items', [ProductItemController::class, 'index']);
+    Route::get('/items/create', [ProductItemController::class, 'create']);
+    Route::post('/items', [ProductItemController::class, 'store']);
+    Route::get('/items/{productItem}', [ProductItemController::class, 'show']);
+    Route::get('/items/{productItem}/edit', [ProductItemController::class, 'edit']);
+    Route::put('/items/{productItem}', [ProductItemController::class, 'update']);
+    Route::delete('/items/{productItem}', [ProductItemController::class, 'destroy']);
 
-    Route::get('/register', [UserRegistrationController::class, 'create'])->name('register.create');
-    Route::post('/register', [UserRegistrationController::class, 'store'])->name('register.store');
-});
+})->middleware(['auth']);
 
+include __DIR__.'/auth.php';
 
