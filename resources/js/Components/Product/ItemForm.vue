@@ -16,6 +16,7 @@ const { productItem = undefined, productCategories } = defineProps({
 
 const form = useForm({
   name: productItem?.name || '',
+  short_name: productItem?.short_name || null,
   code: productItem?.code || '',
   description: productItem?.description || '',
   turnaround_time: productItem?.turnaround_time || '',
@@ -69,6 +70,27 @@ const handleDelete = () => {
             />
           </div>
 
+          <!-- Product Short Name -->
+          <div
+            class="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-4 py-6 items-center"
+          >
+            <Label for="short-name" class="sm:col-span-1"> Short Name </Label>
+            <div
+              class="sm:col-span-3 grid grid-cols-1 gap-x-6 sm:grid-cols-4 items-center"
+            >
+              <Input
+                id="short-name"
+                type="text"
+                class="sm:col-span-1"
+                v-model="form.short_name"
+              />
+            </div>
+            <InputError
+              :error="form.errors.short_name"
+              class="sm:col-start-2 sm:col-end-[-1]"
+            />
+          </div>
+
           <!-- Product Code -->
           <div
             class="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-4 py-6 items-center"
@@ -109,14 +131,14 @@ const handleDelete = () => {
           <div
             class="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-4 py-6 items-center"
           >
-            <Label for="turnaround_time" class="sm:col-span-1">
+            <Label for="turnaround-time" class="sm:col-span-1">
               Turnaround Time
             </Label>
             <div
               class="sm:col-span-3 grid grid-cols-1 gap-x-6 sm:grid-cols-4 items-center"
             >
               <Input
-                id="turnaround_time"
+                id="turnaround-time"
                 type="text"
                 class="sm:col-span-1"
                 v-model="form.turnaround_time"
@@ -146,7 +168,7 @@ const handleDelete = () => {
 
     <div class="mt-6 flex items-center justify-between gap-x-6">
       <ButtonDelete
-        id="delete-product-item"
+        :id="`delete-product-item-${productItem.id}`"
         :handlerEndpoint="`/products/items/${productItem.id}`"
         v-if="productItem"
       >

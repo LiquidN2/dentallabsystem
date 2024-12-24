@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductItemController;
 use Illuminate\Support\Facades\Route;
@@ -14,7 +15,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/customers/{customer}/orders', [CustomerController::class, 'orders'])->name('customers.orders');
 
     // Orders
-    Route::inertia('/orders', 'Orders/Index')->name('orders.index');
+    Route::resource('orders', OrderController::class);
 });
 
 Route::prefix('products')->group(function () {
