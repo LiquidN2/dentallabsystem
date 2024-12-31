@@ -13,7 +13,7 @@ class OrderSeeder extends Seeder
     {
         $data = [
             [
-                'order_number'    => '123456789',
+                'number'          => '123456789',
                 'customer_id'     => 1,
                 'dentist'         => 'Dr John Doe',
                 'patient'         => 'Jane Brown',
@@ -21,7 +21,18 @@ class OrderSeeder extends Seeder
                 'digital'         => true,
                 'created_at'      => now(),
                 'updated_at'      => now(),
-            ]
+            ],
+            [
+                'number'          => '123456790',
+                'customer_id'     => 2,
+                'dentist'         => 'Dr Adam Smith',
+                'patient'         => 'Ben White',
+                'product_item_id' => 5,
+                'digital'         => false,
+                'created_at'      => now(),
+                'updated_at'      => now(),
+            ],
+
         ];
 
         Order::insert($data);
